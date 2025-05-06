@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Language Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2d5a4d;  /* Dark green */
+            --secondary-color: #1e3d33;  /* Darker green */
+            --accent-color: #4CAF50;  /* Bright green */
+            --text-color: #333333;
+            --light-gray: #f5f7fa;
+            --white: #ffffff;
+            --black: #2d5a4d;
+            --beige: #f5f5dc;  /* Beige color */
+            --light-green: #e8f5e9;  /* Light green */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--beige);
+        }
+        .header {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--beige);
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 6rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .feature-card {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: var(--secondary-color);
+        }
+        .feature-card h3 {
+            color: var(--beige);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        .video-section {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .video-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .instructions {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .instructions h2 {
+            color: var(--beige);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        .instructions ol {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+        .instructions li {
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+        }
+        .info-section {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .info-section h2 {
+            color: var(--beige);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        .info-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .stats-section {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .stats-section h2 {
+            color: var(--beige);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        .stats-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        .contact-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .contact-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .contact-content {
+            background: var(--beige);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.8rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            font-family: inherit;
+            background: var(--white);
+        }
+        .contact-form button {
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">Sign Language Detection</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About Us</a>
+                <a href="#" class="nav-link" onclick="openContactModal()">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <div id="contactModal" class="contact-modal">
+        <div class="contact-content">
+            <span class="close-modal" onclick="closeContactModal()">&times;</span>
+            <h2>Contact Us</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <main class="main-container">
+        <section class="hero">
+            <h1>Advanced Sign Language Detection</h1>
+            <p>Real-time sign language recognition using state-of-the-art machine learning technology</p>
+            <a href="#demo" class="cta-button">Try Demo</a>
+        </section>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-indicator"></span>
+                <span>Camera: Active</span>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator"></span>
+                <span>Model: Loaded</span>
+            </div>
+            <div class="status-item">
+                <span class="status-indicator"></span>
+                <span>Detection: Ready</span>
+            </div>
+        </div>
+
+        <section class="info-section">
+            <h2>Our Technology</h2>
+            <p>Our system utilizes cutting-edge computer vision and machine learning to provide real-time sign language interpretation. By capturing hand movements with a camera, our technology translates sign language gestures into easily understandable text, fostering communication and accessibility.</p>
+            <p>Harnessing the power of MediaPipe and Python, our sign language recognition system offers advanced translation capabilities. The system accurately detects hand landmarks, processes spatial data, and employs a trained model to predict sign language characters, delivering a robust and efficient interpretation solution.</p>
+        </section>
+
+        <section class="stats-section">
+            <h2>Why Choose Us?</h2>
+            <p>Globally, over 1.5 billion people, or nearly 20% of the world's population, live with hearing loss. Of these, 430 million have disabling hearing loss. By 2050, this number is projected to rise to over 700 million, impacting 1 in 10 people.</p>
+            <p>We are dedicated to bridging communication gaps through our innovative sign language interpretation technology. Our system empowers users to connect more effectively by converting sign language into text in real-time, promoting inclusivity and facilitating seamless interaction.</p>
+        </section>
+
+        <section class="info-section">
+            <h2>Cost-Effective Solution</h2>
+            <p>Our sign language interpretation system offers a cost-effective alternative to traditional in-person interpreting services. By leveraging technology to automate the translation process, we can significantly reduce the expenses associated with scheduling, travel, and hourly fees for human interpreters, making communication more accessible to a wider range of individuals and organizations.</p>
+            <p>Our technology provides a scalable and cost-effective solution for sign language interpretation. Unlike traditional methods, which require a one-to-one interpreter-to-user ratio, our system can serve multiple users simultaneously. This scalability drives down the cost per user, making effective communication more attainable for institutions and individuals with budget constraints.</p>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>Real-time Detection</h3>
+                <p>Instant recognition of sign language gestures with high accuracy</p>
+            </div>
+            <div class="feature-card">
+                <h3>Advanced AI</h3>
+                <p>Powered by state-of-the-art machine learning algorithms</p>
+            </div>
+            <div class="feature-card">
+                <h3>User-Friendly</h3>
+                <p>Simple interface designed for easy interaction</p>
+            </div>
+        </section>
+
+        <section id="demo" class="video-section">
+            <h2>Live Detection</h2>
+            <div class="video-container">
+                <img src="{{ url_for('video_feed') }}" alt="Sign Language Detection">
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h2>How to Use</h2>
+            <ol>
+                <li>Ensure your camera is properly connected and positioned</li>
+                <li>Position your hand clearly in the camera's view</li>
+                <li>Make the sign you want to detect</li>
+                <li>The detected sign will appear in real-time</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Sign Language Detection.</p>
+    </footer>
+
+    <script>
+        function openContactModal() {
+            document.getElementById('contactModal').classList.add('active');
+        }
+
+        function closeContactModal() {
+            document.getElementById('contactModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactModal');
+            if (event.target == modal) {
+                closeContactModal();
+            }
+        }
+    </script>
+</body>
+</html> 

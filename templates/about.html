@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us - Sign Language Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2d5a4d;  /* Dark green */
+            --secondary-color: #1e3d33;  /* Darker green */
+            --accent-color: #4CAF50;  /* Bright green */
+            --text-color: #333333;
+            --light-gray: #f5f7fa;
+            --white: #ffffff;
+            --black: #2d5a4d;
+            --beige: #f5f5dc;  /* Beige color */
+            --light-green: #e8f5e9;  /* Light green */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--beige);
+        }
+        .header {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--beige);
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 4rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .about-section {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .about-section h2 {
+            color: var(--beige);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        .about-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .team-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .team-member {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+        .team-member h3 {
+            color: var(--beige);
+            margin-bottom: 0.5rem;
+        }
+        .team-member p {
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+        .mission-section {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .mission-section h2 {
+            color: var(--beige);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        .mission-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">Sign Language Detection</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About Us</a>
+                <a href="#" class="nav-link" onclick="openContactModal()">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="about-hero">
+            <h1>About Us</h1>
+            <p>Empowering communication through innovative technology</p>
+        </section>
+
+        <section class="about-section">
+            <h2>Our Story</h2>
+            <p>We are a passionate group of Computer Science students dedicated to making communication more inclusive through technology. Our project, Sign Language Interpreter, aims to bridge the gap between the hearing and the deaf or hard-of-hearing community by developing a system that can accurately recognize and translate sign language into text or speech in real-time.</p>
+            <p>Our journey began with a simple idea: using artificial intelligence to translate sign language in real-time. Through extensive research and development, we've created a system that not only recognizes sign language gestures but also provides accurate translations instantly.</p>
+        </section>
+
+        <section class="mission-section">
+            <h2>Our Mission</h2>
+            <p>Using computer vision and machine learning, our interpreter can identify hand gestures corresponding to alphabets and common words, enabling seamless interaction and accessibility. Our goal is to empower individuals with hearing impairments and promote equal opportunities in communication, education, and everyday life.</p>
+        </section>
+
+        <section class="team-section">
+            <div class="team-member">
+                
+                <h3>Saurav Suman</h3>
+                <p> Developer</p>
+            </div>
+            <div class="team-member">
+               
+                <h3>Rishabh Singh</h3>
+                <p>AI & ML Specialist</p>
+            </div>
+            <div class="team-member">
+                
+                <h3>Saima Bakshi</h3>
+                <p>Frontend Developer</p>
+            </div>
+            <div class="team-member">
+                
+                <h3>Parth Sharma</h3>
+                <p>Backend Developer</p>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <h2>Our Technology</h2>
+            <p>Our sign language detection system combines cutting-edge computer vision and machine learning technologies. Using MediaPipe for hand tracking and custom machine learning models, we've created a system that can accurately interpret sign language gestures in real-time.</p>
+            <p>The technology behind our system includes:</p>
+            <ul>
+                <li>Advanced hand landmark detection</li>
+                <li>Real-time gesture recognition</li>
+                <li>Machine learning-based translation</li>
+                <li>User-friendly interface</li>
+                <li>Cross-platform compatibility</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Sign Language Detection. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
