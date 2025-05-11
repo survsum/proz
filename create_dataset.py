@@ -57,7 +57,7 @@ for dir_ in os.listdir(DATA_DIR):
                         data_aux.append(x - min(x_))
                         data_aux.append(y - min(y_))
 
-                if len(data_aux) == 42:  # 21 landmarks * 2 coordinates
+                if len(data_aux) == 42:  
                     data.append(data_aux)
                     labels.append(dir_)
                     class_samples += 1
@@ -67,7 +67,7 @@ for dir_ in os.listdir(DATA_DIR):
     min_samples = min(min_samples, class_samples)
     print(f"Processed {class_samples} samples for class {dir_}")
 
-# Balance the dataset by taking the minimum number of samples from each class
+
 balanced_data = []
 balanced_labels = []
 class_counts = {}

@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 
-# Load the model
+
 try:
     model_dict = pickle.load(open('./model.p', 'rb'))
     model = model_dict['model']
@@ -18,16 +18,16 @@ except Exception as e:
     print(f"Error loading model: {e}")
     exit(1)
 
-# Initialize MediaPipe Hands
+
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
 
-# Define labels
+
 labels_dict = {
     0: 'A', 1: 'B ', 2: 'C', 3: 'D', 4: 'E',
-    5: 'F', 6: 'G', 7: 'MERA KHEL KHTM HAIII', 8: 'I', 9: 'J',
+    5: 'F', 6: 'G', 7: 'H', 8: 'I', 9: 'J',
     10: 'K', 11: 'L', 12: 'M', 13: 'N', 14: 'O',
     15: 'P', 16: 'Q', 17: 'R', 18: 'S', 19: 'T',
     20: 'U', 21: 'V', 22: 'W', 23: 'X', 24: 'Y',
@@ -57,7 +57,7 @@ def generate_frames():
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         results = hands.process(frame_rgb)
         
-        # Add gothic border to the frame
+    
         cv2.rectangle(frame, (0, 0), (W, H), (139, 0, 0), 10)
         
         if results.multi_hand_landmarks:
@@ -97,7 +97,7 @@ def generate_frames():
                     x2 = int(max(x_) * W) + 10
                     y2 = int(max(y_) * H) + 10
 
-                    # Draw gothic-style box and text
+                
                     cv2.rectangle(frame, (x1, y1), (x2, y2), (139, 0, 0), 4)
                     cv2.putText(frame, predicted_character, (x1, y1 - 10),
                               cv2.FONT_HERSHEY_SIMPLEX, 1.3, (139, 0, 0), 3,
@@ -105,7 +105,7 @@ def generate_frames():
                 except Exception as e:
                     print(f"Error making prediction: {e}")
 
-        # Add gothic title
+    
         cv2.putText(frame, "Sign Language Detection", (50, 50),
                    cv2.FONT_HERSHEY_SIMPLEX, 1.5, (139, 0, 0), 3,
                    cv2.LINE_AA)

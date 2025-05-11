@@ -7,14 +7,14 @@ import os
 from PIL import Image
 import time
 
-# Set page config
+
 st.set_page_config(
     page_title="Sign Language Detection",
     page_icon="👋",
     layout="wide"
 )
 
-# Custom CSS
+
 st.markdown("""
     <style>
     .main {
@@ -35,11 +35,11 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Title and description
+
 st.markdown("<h1 class='title'>Sign Language Detection</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Real-time sign language detection using computer vision</p>", unsafe_allow_html=True)
 
-# Load the model
+
 @st.cache_resource
 def load_model():
     try:
@@ -54,7 +54,7 @@ def load_model():
 
 model = load_model()
 
-# Initialize MediaPipe Hands
+
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -62,7 +62,7 @@ hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
 
 # Define labels
 labels_dict = {
-    0: 'hello', 1: 'B', 2: 'C', 3: 'D', 4: 'E',
+    0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E',
     5: 'F', 6: 'G', 7: 'H', 8: 'I', 9: 'J',
     10: 'K', 11: 'L', 12: 'M', 13: 'N', 14: 'O',
     15: 'P', 16: 'Q', 17: 'R', 18: 'S', 19: 'T',
@@ -75,12 +75,12 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("### Camera Feed")
-    # Create a placeholder for the video feed
+ 
     video_placeholder = st.empty()
 
 with col2:
     st.markdown("### Detected Sign")
-    # Create a placeholder for the detected sign
+ 
     sign_placeholder = st.empty()
     st.markdown("### Instructions")
     st.markdown("""
@@ -90,7 +90,7 @@ with col2:
     4. The detected sign will appear in the box above
     """)
 
-# Initialize camera
+
 cap = None
 camera_index = 0
 while camera_index < 4:
@@ -104,7 +104,7 @@ if not cap or not cap.isOpened():
     st.error("Could not initialize camera. Please check your camera connection.")
     st.stop()
 
-# Main loop
+
 try:
     while True:
         ret, frame = cap.read()
@@ -162,16 +162,16 @@ try:
                 except Exception as e:
                     st.error(f"Error making prediction: {e}")
 
-        # Display the video feed
+        
         video_placeholder.image(frame, channels="BGR", use_column_width=True)
         
-        # Display the detected sign
+      
         if detected_sign:
             sign_placeholder.markdown(f"<h2 style='text-align: center; color: #2c3e50;'>{detected_sign}</h2>", unsafe_allow_html=True)
         else:
             sign_placeholder.markdown("<h2 style='text-align: center; color: #7f8c8d;'>No sign detected</h2>", unsafe_allow_html=True)
 
-        time.sleep(0.01)  # Small delay to prevent high CPU usage
+        time.sleep(0.01)  
 
 except KeyboardInterrupt:
     st.info("Stopping sign language detection...")

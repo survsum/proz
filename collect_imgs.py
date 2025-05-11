@@ -8,10 +8,10 @@ if not os.path.exists(DATA_DIR):
 number_of_classes = 1
 dataset_size = 100
 
-# Try different camera indices if 2 doesn't work
+
 camera_index = 0
 cap = None
-while camera_index < 4:  # Try first 4 camera indices
+while camera_index < 4: 
     cap = cv2.VideoCapture(camera_index)
     if cap.isOpened():
         break
